@@ -45,7 +45,9 @@ class Resources(BaseModel):
 
 class Config(BaseModel):
     type: typing.Literal["string"]  # only string types supported for the moment
-    description: str = Field(description="The usage for the config variable.")
+    description: typing.Optional[str] = Field(
+        description="The usage for the config variable."
+    )
     secret: bool
 
 

@@ -23,7 +23,6 @@
       },
       "required": [
         "type",
-        "description",
         "secret"
       ],
       "title": "Config",

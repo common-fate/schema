@@ -8,6 +8,8 @@ from syrupy.types import SnapshotIndex
 
 
 class SchemaOutputExtension(JSONSnapshotExtension):
+    _file_extension = ""
+
     @classmethod
     def dirname(cls, *, test_location: "PyTestLocation") -> str:
         return str(

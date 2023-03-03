@@ -15,7 +15,6 @@ pydantic = "*"
 [tool.poetry.group.dev.dependencies]
 syrupy = "^4.0.1"
 black = {version = "^23.1.0", allow-prereleases = true}
-jsonschema-to-openapi = "^0.2.1"
 
 [build-system]
 requires = ["poetry-core"]

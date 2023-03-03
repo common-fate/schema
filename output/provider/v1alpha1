@@ -181,9 +181,6 @@
     }
   },
   "required": [
-    "targets",
-    "config",
-    "resources",
     "meta"
   ],
   "title": "Schema",

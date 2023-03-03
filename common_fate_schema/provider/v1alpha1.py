@@ -66,9 +66,9 @@ class Schema(BaseModel):
     """
 
     provider: typing.Optional[Provider] = Field(exclude=True)
-    targets: typing.Dict[str, Target]
-    config: typing.Dict[str, Config]
-    resources: Resources
+    targets: typing.Optional[typing.Dict[str, Target]]
+    config: typing.Optional[typing.Dict[str, Config]]
+    resources: typing.Optional[Resources]
     meta: Meta
 
     def dict(self, *args, **kwargs):

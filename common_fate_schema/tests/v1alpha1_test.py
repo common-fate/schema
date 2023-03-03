@@ -84,3 +84,11 @@ def test_v1alpha1_example_no_provider(snapshot_json):
     )
 
     assert schema.dict() == snapshot_json
+
+
+def test_v1alpha1_minimal(snapshot_json):
+    schema = v1alpha1.Schema(
+        meta=v1alpha1.Meta(framework="dev"),
+    )
+
+    assert schema.dict(exclude_none=True) == snapshot_json

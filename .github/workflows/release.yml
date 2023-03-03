@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  publish:
+    name: Publish to website
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: ap-southeast-2
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/cf-githubactions-schema
+
+      - name: Deploy
+        run: aws s3 sync ./output s3://common-fate-schema-releases-ap-southeast-2

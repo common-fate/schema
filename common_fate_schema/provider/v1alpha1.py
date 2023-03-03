@@ -105,7 +105,7 @@ class Schema(BaseModel):
                 }
             )
 
-        super().json(*args, **kwargs)
+        return super().json(*args, **kwargs)
 
     class Config:
         schema_extra = {

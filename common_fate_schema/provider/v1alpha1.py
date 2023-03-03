@@ -55,7 +55,7 @@ class Schema(BaseModel):
     """
 
     targets: typing.Dict[str, Target]
-    config: typing.Dict[str, typing.Any]
+    config: typing.Dict[str, Config]
     resources: Resources
     meta: Meta
 

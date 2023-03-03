@@ -2,6 +2,33 @@
   "$id": "https://schema.commonfate.io/provider/v1alpha1",
   "$schema": "https://schema.commonfate.io/provider/v1alpha1",
   "definitions": {
+    "Config": {
+      "properties": {
+        "description": {
+          "description": "The usage for the config variable.",
+          "title": "Description",
+          "type": "string"
+        },
+        "secret": {
+          "title": "Secret",
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "string"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "description",
+        "secret"
+      ],
+      "title": "Config",
+      "type": "object"
+    },
     "Loader": {
       "description": "A callable function in the provider which can\nload resources.\n\nAdditional fields for loader configuration may be added\nin a future specification.",
       "properties": {
@@ -111,6 +138,9 @@
   "description": "The schema for a Common Fate Provider.",
   "properties": {
     "config": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Config"
+      },
       "title": "Config",
       "type": "object"
     },

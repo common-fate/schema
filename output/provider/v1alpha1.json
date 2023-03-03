@@ -1,0 +1,136 @@
+{
+  "$id": "https://schema.commonfate.io/provider/v1alpha1",
+  "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+  "definitions": {
+    "Loader": {
+      "description": "A callable function in the provider which can\nload resources.\n\nAdditional fields for loader configuration may be added\nin a future specification.",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "Loader",
+      "type": "object"
+    },
+    "Meta": {
+      "properties": {
+        "framework": {
+          "description": "The Provider Developer Kit framework version which published the schema.",
+          "title": "Framework",
+          "type": "string"
+        }
+      },
+      "required": [
+        "framework"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Resources": {
+      "properties": {
+        "loaders": {
+          "additionalProperties": {
+            "$ref": "#/definitions/Loader"
+          },
+          "title": "Loaders",
+          "type": "object"
+        },
+        "types": {
+          "description": "the types of resources",
+          "title": "Types",
+          "type": "object"
+        }
+      },
+      "required": [
+        "loaders",
+        "types"
+      ],
+      "title": "Resources",
+      "type": "object"
+    },
+    "Target": {
+      "properties": {
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/TargetField"
+          },
+          "description": "the actual properties of the target.",
+          "title": "Properties",
+          "type": "object"
+        },
+        "type": {
+          "description": "included for compatibility with JSON Schema - all targets are currently objects.",
+          "enum": [
+            "object"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "properties"
+      ],
+      "title": "Target",
+      "type": "object"
+    },
+    "TargetField": {
+      "properties": {
+        "resource": {
+          "description": "If specified, the type of the resource the field should be populated from.",
+          "title": "Resource",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "title"
+      ],
+      "title": "TargetField",
+      "type": "object"
+    }
+  },
+  "description": "The schema for a Common Fate Provider.",
+  "properties": {
+    "config": {
+      "title": "Config",
+      "type": "object"
+    },
+    "meta": {
+      "$ref": "#/definitions/Meta"
+    },
+    "resources": {
+      "$ref": "#/definitions/Resources"
+    },
+    "targets": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Target"
+      },
+      "title": "Targets",
+      "type": "object"
+    }
+  },
+  "required": [
+    "targets",
+    "config",
+    "resources",
+    "meta"
+  ],
+  "title": "Schema",
+  "type": "object"
+}

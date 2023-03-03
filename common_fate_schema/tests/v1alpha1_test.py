@@ -11,7 +11,9 @@ class SchemaOutputExtension(JSONSnapshotExtension):
     @classmethod
     def dirname(cls, *, test_location: "PyTestLocation") -> str:
         return str(
-            Path(test_location.filepath).parent.parent.parent.joinpath("dist/provider")
+            Path(test_location.filepath).parent.parent.parent.joinpath(
+                "output/provider"
+            )
         )
 
     @classmethod

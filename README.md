@@ -1,3 +1,3 @@
-# common-fate-schema
+# schema
 
 Core Common Fate schema type definitions.

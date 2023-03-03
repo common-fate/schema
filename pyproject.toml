@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "common-fate-schema"
+version = "0.1.0"
+description = "Common Fate core schema types"
+authors = ["Common Fate <hello@commonfate.io>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "common_fate_schema"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^1.10.5"
+
+
+[tool.poetry.group.dev.dependencies]
+syrupy = "^4.0.1"
+black = {version = "^23.1.0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

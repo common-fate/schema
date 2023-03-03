@@ -1,0 +1,194 @@
+{
+  "additionalProperties": true,
+  "definitions": {
+    "Config": {
+      "additionalProperties": true,
+      "nullable": false,
+      "properties": {
+        "description": {
+          "description": "The usage for the config variable.",
+          "nullable": false,
+          "title": "Description",
+          "type": "string"
+        },
+        "secret": {
+          "nullable": false,
+          "title": "Secret",
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "string"
+          ],
+          "nullable": false,
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "description",
+        "secret"
+      ],
+      "title": "Config",
+      "type": "object"
+    },
+    "Loader": {
+      "additionalProperties": true,
+      "description": "A callable function in the provider which can\nload resources.\n\nAdditional fields for loader configuration may be added\nin a future specification.",
+      "nullable": false,
+      "properties": {
+        "title": {
+          "nullable": false,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "Loader",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": true,
+      "nullable": false,
+      "properties": {
+        "framework": {
+          "description": "The Provider Developer Kit framework version which published the schema.",
+          "nullable": false,
+          "title": "Framework",
+          "type": "string"
+        }
+      },
+      "title": "Meta",
+      "type": "object"
+    },
+    "Resources": {
+      "additionalProperties": true,
+      "nullable": false,
+      "properties": {
+        "loaders": {
+          "additionalProperties": {
+            "$ref": "#/definitions/Loader"
+          },
+          "nullable": false,
+          "title": "Loaders",
+          "type": "object"
+        },
+        "types": {
+          "additionalProperties": true,
+          "description": "the types of resources",
+          "nullable": false,
+          "title": "Types",
+          "type": "object"
+        }
+      },
+      "required": [
+        "loaders",
+        "types"
+      ],
+      "title": "Resources",
+      "type": "object"
+    },
+    "Target": {
+      "additionalProperties": true,
+      "nullable": false,
+      "properties": {
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/TargetField"
+          },
+          "description": "the actual properties of the target.",
+          "nullable": false,
+          "title": "Properties",
+          "type": "object"
+        },
+        "type": {
+          "description": "included for compatibility with JSON Schema - all targets are currently objects.",
+          "enum": [
+            "object"
+          ],
+          "nullable": false,
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "properties"
+      ],
+      "title": "Target",
+      "type": "object"
+    },
+    "TargetField": {
+      "additionalProperties": true,
+      "nullable": false,
+      "properties": {
+        "resource": {
+          "description": "If specified, the type of the resource the field should be populated from.",
+          "nullable": false,
+          "title": "Resource",
+          "type": "string"
+        },
+        "title": {
+          "nullable": false,
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string"
+          ],
+          "nullable": false,
+          "title": "Type",
+          "type": "string"
+        },
+        "usage": {
+          "nullable": false,
+          "title": "Usage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "TargetField",
+      "type": "object"
+    }
+  },
+  "description": "The schema for a Common Fate Provider.",
+  "nullable": false,
+  "properties": {
+    "config": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Config"
+      },
+      "nullable": false,
+      "title": "Config",
+      "type": "object"
+    },
+    "meta": {
+      "$ref": "#/definitions/Meta"
+    },
+    "resources": {
+      "$ref": "#/definitions/Resources"
+    },
+    "targets": {
+      "additionalProperties": {
+        "$ref": "#/definitions/Target"
+      },
+      "nullable": false,
+      "title": "Targets",
+      "type": "object"
+    }
+  },
+  "required": [
+    "targets",
+    "config",
+    "resources",
+    "meta"
+  ],
+  "title": "Schema",
+  "type": "object"
+}

@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 class TargetField(BaseModel):
     type: typing.Literal["string"]  # only string types supported for the moment
     title: typing.Optional[str]
-    usage: typing.Optional[str]
+    description: typing.Optional[str]
     resource: typing.Optional[str] = Field(
         description="If specified, the type of the resource the field should be populated from."
     )

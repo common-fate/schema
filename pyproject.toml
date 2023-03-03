@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "common-fate-schema"
-version = "0.1.0"
+version = "0.1.1"
 description = "Common Fate core schema types"
 authors = ["Common Fate <hello@commonfate.io>"]
 license = "MIT"
@@ -9,7 +9,7 @@ packages = [{include = "common_fate_schema"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pydantic = "^1.10.5"
+pydantic = "*"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -21,7 +21,7 @@ class Target(BaseModel):
 
 
 class Meta(BaseModel):
-    framework: str = Field(
+    framework: typing.Optional[str] = Field(
         description="The Provider Developer Kit framework version which published the schema."
     )
 

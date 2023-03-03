@@ -51,9 +51,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "framework"
-      ],
       "title": "Meta",
       "type": "object"
     },

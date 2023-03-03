@@ -76,7 +76,7 @@ class Schema(BaseEntity):
     The schema for a Common Fate Provider.
     """
 
-    provider: Provider = Field(exclude=True)
+    provider: typing.Optional[Provider] = Field(exclude=True)
     targets: typing.Dict[str, Target]
     config: typing.Dict[str, Config]
     resources: Resources
@@ -86,9 +86,16 @@ class Schema(BaseEntity):
         self.__dict__.update(
             {
                 "$schema": "https://schema.commonfate.io/provider/v1alpha1",
-                "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
             }
         )
+
+        if self.provider is not None:
+            self.__dict__.update(
+                {
+                    "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
+                }
+            )
+
         return super().dict(*args, **kwargs)
 
     def json(
@@ -99,9 +106,17 @@ class Schema(BaseEntity):
         self.__dict__.update(
             {
                 "$schema": "https://schema.commonfate.io/provider/v1alpha1",
-                "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema}",
             }
         )
+
+        if self.provider is not None:
+            self.__dict__.update(
+                {
+                    "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
+                }
+            )
+
+        super().json(*args, **kwargs)
 
     class Config:
         schema_extra = {

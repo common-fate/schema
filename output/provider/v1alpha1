@@ -181,7 +181,6 @@
     }
   },
   "required": [
-    "provider",
     "targets",
     "config",
     "resources",

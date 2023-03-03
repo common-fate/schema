@@ -66,3 +66,21 @@ def test_v1alpha1_example(snapshot_json):
     )
 
     assert schema.dict() == snapshot_json
+
+
+def test_v1alpha1_example_no_provider(snapshot_json):
+    schema = v1alpha1.Schema(
+        targets={
+            "Group": v1alpha1.Target(
+                type="object", properties={"value": v1alpha1.TargetField(type="string")}
+            )
+        },
+        config={"api_url": v1alpha1.Config(type="string", secret=False)},
+        meta=v1alpha1.Meta(framework="dev"),
+        resources=v1alpha1.Resources(
+            loaders={"example": v1alpha1.Loader(title="example")},
+            types={"MyResource": {"type": "string"}},
+        ),
+    )
+
+    assert schema.dict() == snapshot_json

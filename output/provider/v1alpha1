@@ -10,6 +10,7 @@
           "type": "string"
         },
         "secret": {
+          "default": false,
           "title": "Secret",
           "type": "boolean"
         },
@@ -22,8 +23,7 @@
         }
       },
       "required": [
-        "type",
-        "secret"
+        "type"
       ],
       "title": "Config",
       "type": "object"
@@ -51,6 +51,29 @@
         }
       },
       "title": "Meta",
+      "type": "object"
+    },
+    "Provider": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "publisher": {
+          "title": "Publisher",
+          "type": "string"
+        },
+        "schema_version": {
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "publisher",
+        "name",
+        "schema_version"
+      ],
+      "title": "Provider",
       "type": "object"
     },
     "Resources": {
@@ -143,6 +166,9 @@
     "meta": {
       "$ref": "#/definitions/Meta"
     },
+    "provider": {
+      "$ref": "#/definitions/Provider"
+    },
     "resources": {
       "$ref": "#/definitions/Resources"
     },
@@ -155,6 +181,7 @@
     }
   },
   "required": [
+    "provider",
     "targets",
     "config",
     "resources",

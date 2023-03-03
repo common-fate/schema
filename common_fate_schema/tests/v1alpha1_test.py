@@ -29,12 +29,40 @@ class SchemaOutputExtension(JSONSnapshotExtension):
 
 
 @pytest.fixture
-def snapshot_json(snapshot):
-    """use JSON, rather than AmberSnapshotExtension as our schema is serialized as JSON"""
+def export_schema(snapshot):
     return snapshot.use_extension(SchemaOutputExtension)
 
 
-def test_v1alpha1(snapshot_json):
+@pytest.fixture
+def snapshot_json(snapshot):
+    """use JSON, rather than AmberSnapshotExtension as our schema is serialized as JSON"""
+    return snapshot.use_extension(JSONSnapshotExtension)
+
+
+def test_v1alpha1(export_schema):
     schema_str = v1alpha1.Schema.schema_json()
     actual = json.loads(schema_str)
-    assert actual == snapshot_json
+    assert actual == export_schema
+
+
+def test_v1alpha1_example(snapshot_json):
+    schema = v1alpha1.Schema(
+        provider=v1alpha1.Provider(
+            schema_version="v1",
+            name="example",
+            publisher="common-fate",
+        ),
+        targets={
+            "Group": v1alpha1.Target(
+                type="object", properties={"value": v1alpha1.TargetField(type="string")}
+            )
+        },
+        config={"api_url": v1alpha1.Config(type="string", secret=False)},
+        meta=v1alpha1.Meta(framework="dev"),
+        resources=v1alpha1.Resources(
+            loaders={"example": v1alpha1.Loader(title="example")},
+            types={"MyResource": {"type": "string"}},
+        ),
+    )
+
+    assert schema.dict() == snapshot_json

@@ -48,18 +48,60 @@ class Config(BaseModel):
     description: typing.Optional[str] = Field(
         description="The usage for the config variable."
     )
-    secret: bool
+    secret: bool = False
 
 
-class Schema(BaseModel):
+class BaseEntity(BaseModel):
+    # Workaround for serializing properties with pydantic until
+    # https://github.com/samuelcolvin/pydantic/issues/935
+    # is solved
+    @classmethod
+    def get_properties(cls):
+        return [prop for prop in dir(cls) if isinstance(getattr(cls, prop), property)]
+
+        return super().json(*args, **kwargs)
+
+
+class Provider(BaseModel):
+    publisher: str
+    name: str
+    schema_version: str
+    """
+    The version of the schema (*not* the version of the Provider itself).
+    """
+
+
+class Schema(BaseEntity):
     """
     The schema for a Common Fate Provider.
     """
 
+    provider: Provider = Field(exclude=True)
     targets: typing.Dict[str, Target]
     config: typing.Dict[str, Config]
     resources: Resources
     meta: Meta
+
+    def dict(self, *args, **kwargs):
+        self.__dict__.update(
+            {
+                "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+                "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
+            }
+        )
+        return super().dict(*args, **kwargs)
+
+    def json(
+        self,
+        *args,
+        **kwargs,
+    ) -> str:
+        self.__dict__.update(
+            {
+                "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+                "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema}",
+            }
+        )
 
     class Config:
         schema_extra = {

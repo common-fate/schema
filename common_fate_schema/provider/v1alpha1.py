@@ -51,17 +51,6 @@ class Config(BaseModel):
     secret: bool = False
 
 
-class BaseEntity(BaseModel):
-    # Workaround for serializing properties with pydantic until
-    # https://github.com/samuelcolvin/pydantic/issues/935
-    # is solved
-    @classmethod
-    def get_properties(cls):
-        return [prop for prop in dir(cls) if isinstance(getattr(cls, prop), property)]
-
-        return super().json(*args, **kwargs)
-
-
 class Provider(BaseModel):
     publisher: str
     name: str
@@ -71,7 +60,7 @@ class Provider(BaseModel):
     """
 
 
-class Schema(BaseEntity):
+class Schema(BaseModel):
     """
     The schema for a Common Fate Provider.
     """

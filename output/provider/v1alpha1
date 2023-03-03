@@ -80,6 +80,10 @@
     },
     "TargetField": {
       "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
         "resource": {
           "description": "If specified, the type of the resource the field should be populated from.",
           "title": "Resource",
@@ -98,8 +102,7 @@
         }
       },
       "required": [
-        "type",
-        "title"
+        "type"
       ],
       "title": "TargetField",
       "type": "object"

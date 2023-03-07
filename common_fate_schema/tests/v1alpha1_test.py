@@ -47,7 +47,7 @@ def test_v1alpha1(export_schema):
 
 def test_v1alpha1_example(snapshot_json):
     schema = v1alpha1.Schema(
-        provider=v1alpha1.Provider(
+        id=v1alpha1.ID(
             schema_version="v1",
             name="example",
             publisher="common-fate",

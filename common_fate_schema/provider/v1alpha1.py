@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import typing
 from pydantic import BaseModel, Field
 
@@ -51,7 +52,8 @@ class Config(BaseModel):
     secret: bool = False
 
 
-class Provider(BaseModel):
+@dataclass
+class ID:
     publisher: str
     name: str
     schema_version: str
@@ -65,7 +67,7 @@ class Schema(BaseModel):
     The schema for a Common Fate Provider.
     """
 
-    provider: typing.Optional[Provider] = Field(exclude=True)
+    id: typing.Optional[ID]
     targets: typing.Optional[typing.Dict[str, Target]]
     config: typing.Optional[typing.Dict[str, Config]]
     resources: typing.Optional[Resources]
@@ -78,12 +80,14 @@ class Schema(BaseModel):
             }
         )
 
-        if self.provider is not None:
+        if self.id is not None:
             self.__dict__.update(
                 {
-                    "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
+                    "$id": f"https://registry.commonfate.io/schema/{self.id.publisher}/{self.id.name}/{self.id.schema_version}",
                 }
             )
+
+        self.__dict__.pop("id")
 
         return super().dict(*args, **kwargs)
 
@@ -94,21 +98,27 @@ class Schema(BaseModel):
     ) -> str:
         self.__dict__.update(
             {
-                "$schema": "https://json-schema.org/draft-07/schema#",
+                "$schema": "https://schema.commonfate.io/provider/v1alpha1",
             }
         )
-
-        if self.provider is not None:
+        if self.id is not None:
             self.__dict__.update(
                 {
-                    "$id": f"https://registry.commonfate.io/schema/{self.provider.publisher}/{self.provider.name}/{self.provider.schema_version}",
+                    "$id": f"https://registry.commonfate.io/schema/{self.id.publisher}/{self.id.name}/{self.id.schema_version}",
                 }
             )
+
+        self.__dict__.pop("id")
 
         return super().json(*args, **kwargs)
 
     class Config:
-        schema_extra = {
-            "$schema": "https://json-schema.org/draft-07/schema#",
-            "$id": "https://schema.commonfate.io/provider/v1alpha1",
-        }
+        @staticmethod
+        def schema_extra(
+            schema: typing.Dict[str, typing.Any], model: typing.Type["Schema"]
+        ) -> None:
+            if schema["title"] == "Schema":
+                schema["properties"].pop("id")
+
+                schema["$schema"] = "https://json-schema.org/draft-07/schema#"
+                schema["$id"] = "https://schema.commonfate.io/provider/v1alpha1"

@@ -28,6 +28,29 @@
       "title": "Config",
       "type": "object"
     },
+    "ID": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "publisher": {
+          "title": "Publisher",
+          "type": "string"
+        },
+        "schema_version": {
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "publisher",
+        "name",
+        "schema_version"
+      ],
+      "title": "ID",
+      "type": "object"
+    },
     "Loader": {
       "description": "A callable function in the provider which can\nload resources.\n\nAdditional fields for loader configuration may be added\nin a future specification.",
       "properties": {
@@ -51,29 +74,6 @@
         }
       },
       "title": "Meta",
-      "type": "object"
-    },
-    "Provider": {
-      "properties": {
-        "name": {
-          "title": "Name",
-          "type": "string"
-        },
-        "publisher": {
-          "title": "Publisher",
-          "type": "string"
-        },
-        "schema_version": {
-          "title": "Schema Version",
-          "type": "string"
-        }
-      },
-      "required": [
-        "publisher",
-        "name",
-        "schema_version"
-      ],
-      "title": "Provider",
       "type": "object"
     },
     "Resources": {
@@ -165,9 +165,6 @@
     },
     "meta": {
       "$ref": "#/definitions/Meta"
-    },
-    "provider": {
-      "$ref": "#/definitions/Provider"
     },
     "resources": {
       "$ref": "#/definitions/Resources"

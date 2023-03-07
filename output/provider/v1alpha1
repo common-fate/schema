@@ -1,6 +1,6 @@
 {
   "$id": "https://schema.commonfate.io/provider/v1alpha1",
-  "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "definitions": {
     "Config": {
       "properties": {

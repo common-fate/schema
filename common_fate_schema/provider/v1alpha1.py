@@ -94,7 +94,7 @@ class Schema(BaseModel):
     ) -> str:
         self.__dict__.update(
             {
-                "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+                "$schema": "https://json-schema.org/draft-07/schema#",
             }
         )
 
@@ -109,6 +109,6 @@ class Schema(BaseModel):
 
     class Config:
         schema_extra = {
-            "$schema": "https://schema.commonfate.io/provider/v1alpha1",
+            "$schema": "https://json-schema.org/draft-07/schema#",
             "$id": "https://schema.commonfate.io/provider/v1alpha1",
         }

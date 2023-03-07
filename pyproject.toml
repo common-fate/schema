@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "common-fate-schema"
-version = "0.6.0"
+version = "0.7.0"
 description = "Common Fate core schema types"
 authors = ["Common Fate <hello@commonfate.io>"]
 license = "MIT"
